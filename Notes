@@ -1,0 +1,75 @@
+___________________________________________________________
+Components root -> AppComponent
+Modules -> root -> AppModule -> declares AppComponent ++
+							-> imports BrowserModule, FormsModule++
+*ngIf *ngFor = structural directives , available from BrowserModule
+
+
+Interpolation {{}}
+Property Binding attribute []
+Event Binding event ()
+Two Way data binding -> [()] ngModel
+
+Pipes _.
+| lowercase
+| currency:'USD':true:'1.2-2'
+_____________________________________________________
+
+#Interfaces
+Features to improve component:-
+TS best-> strong typing, 
+if property/method doesnot have any type -> we used any[]
+We can define an interface and class implements the interface . JS and ES2015 donot support interfaces but TS does therefore interfaces are transpiled out and not fond in resulting js. tf they are development time only.
+
+DefiningInterfaces Video -> Plz 4:57 (In our interface we can define class for the Product business object if that class provide some fnctionality we want to use throughtout our app e.g claculate discount)
+
+#Component Styles
+component decorator has properties 
+styles
+styleUrls 
+
+#LifeCycleHooks
+Component has lifecycle managed by Angular
+ng creates -> render-> create and render child-> process changes when its databound properties change->destroy before removing its template from dom :)
+Commonly used 1)OnInit:- comp initilaization , good place to retrieve data for template from backend
+2)OnChanges: action after angular sets databound input properties
+3)OnDestroy; clean up before component
+to implement them we need lifecycle hooks respective interface e.g OnInit and implement its method ngOnInit (1 method) 
+
+#Custom Pipes
+@Pipe need to implement PipeTransform 
+method-> transform
+
+
+#Filter one way pipe -> custom but is tehre a better way: FIltering and Sorting sud be in component itself
+
+______________________________________________________________
+#Nested COmponents
+
+Using a component
+Use cmp as directive
+or a routing target (Ful;l page style view)
+should have a selector and communicate with container
+Nested and Parent (In and Out)
+Nested Comp communicate :recieves info from container using i/p prop and it raises event back to Container. we can use Onchanges so that whenever cont comp changes nested also changes
+Input Container to Nested
+if a nested comp wants to recieve from cont it must expose a prop to that container 
+(to recieve input)-> @Input() -> works with any prop type/object cont component pass data to nest comp using prop binding []
+Output Nested to Container 
+@Output to decorate any property of Nested comp class however property type must be an event: Only way nested comp can pass data back to its container is with an event
+data to pass become event payload. In ng event is defined with an EventEmitter<string> (TS supports generics <string> -> event payload type)
+Use event binding here
+use emit method emit(payload)
+(notify) = 'onNoitfy($event)'
+_________________________________________________________________
+Services and DI
+
+2 ways comp can work with svc
+1) create instance of class and use it but inst is local to comp so we cant share data and other res.
+2) <Recommended> register service with ang which creates a singleton ins of servc . Ng provides a built in Injector (container of Service Instances(Singleton))
+if comp requires a svc comp class defines the svc as dependency ng injector then injects it whem comp class in instantiated -> Dep Inj
+
+There are 2 ways to register service :- Componet level: Injectable to Component and child
+Module Level: Injectable everyehr in the app
+<Note> providers [] property can be used
+
